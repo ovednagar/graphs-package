@@ -77,11 +77,13 @@ class MultiGraph:
         curr_node_count = self._node_count.get(graph_name, 0)
         curr_node_list = self._node_lists.get(graph_name, [])
         if node_u not in curr_node_list:
-            self._node_count[graph_name] = curr_node_count + 1
-            self._node_lists[graph_name] = curr_node_list + [node_u]
+            curr_node_count += 1
+            curr_node_list += [node_u]
         if node_v not in curr_node_list:
-            self._node_count[graph_name] += 1
-            self._node_lists[graph_name] = curr_node_list + [node_v]
+            curr_node_count += 1
+            curr_node_list += [node_v]
+        self._node_count[graph_name] = curr_node_count
+        self._node_lists[graph_name] = curr_node_list
 
         # add the edge to the graph if it doesn't exist
         self._gnx_multi.add_edge(node_u, node_v)
@@ -270,14 +272,14 @@ class MultiGraph:
 
     def node_count(self, graph_id=None):
         # return count for specific graph
-        if graph_id:
+        if graph_id is not None:
             return self._node_count[self.index_to_name(graph_id)] if type(graph_id) is int else self._node_count[graph_id]
         # return list of edge count for all graphs
         return [self._node_count[i] for i in self._list_id]
 
     def edge_count(self, graph_id=None):
         # return count for specific graph
-        if graph_id:
+        if graph_id is not None:
             return self._edge_count[self.index_to_name(graph_id)] if type(graph_id) is int else self._edge_count[graph_id]
         # return list of edge count for all graphs
         return [self._edge_count[i] for i in self._list_id]

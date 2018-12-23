@@ -238,12 +238,36 @@ feature_edge_entry = {
     "motif4_edge": FeatureMeta(nth_edges_motif(4), {"me4"}),
 }
 
+
+def generate_graph():
+    g = nx.DiGraph()
+    g.add_edges_from([
+        (0, 1),
+        (0, 2),
+        (0, 3),
+        (2, 0),
+        (3, 1),
+        (3, 2),
+    ])
+    return g
+
+def t_feature():
+    from loggers import PrintLogger
+    logger = PrintLogger("Oved's logger")
+    gnx = generate_graph()
+    feature = MotifsNodeCalculator(gnx, logger=logger)
+    feature.build()
+    print("test finished")
+
+
 if __name__ == "__main__":
-    from measure_tests.specific_feature_test import test_specific_feature
+    t_feature()
+# if __name__ == "__main__":
+#     from measure_tests.specific_feature_test import test_specific_feature
 
     # Previous version contained a bug while counting twice sub-groups with double edges
     # test_specific_feature(nth_edges_motif(3), is_max_connected=True)
-    test_specific_feature(nth_edges_motif(4), is_max_connected=True)
+    # test_specific_feature(nth_edges_motif(4), is_max_connected=True)
 
 
     # def _calculate_motif_dictionaries(self):

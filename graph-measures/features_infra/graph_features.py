@@ -170,7 +170,11 @@ class GraphFeatures(dict):
         sorted_features = [feature for feature in sorted_features if feature.is_relevant() and feature.is_loaded]
 
         if sorted_features:
-            mx = np.hstack([feature.to_matrix(entries_order, mtype=mtype, should_zscore=should_zscore)
+            if len(entries_order) == 1:
+                mx = np.hstack([feature.to_matrix(entries_order, mtype=mtype, should_zscore=should_zscore).transpose()
+                                for feature in sorted_features])
+            else:
+                mx = np.hstack([feature.to_matrix(entries_order, mtype=mtype, should_zscore=should_zscore)
                             for feature in sorted_features])
             if add_ones:
                 mx = np.hstack([mx, np.ones((mx.shape[0], 1))])

@@ -18,6 +18,7 @@ def z_scoring(matrix):
 
 
 def log_norm(matrix):
+    matrix[np.isnan(matrix)] = 0.001
     matrix[matrix < 0.001] = 0.001
     return np.log(matrix)
 
