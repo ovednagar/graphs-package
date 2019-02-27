@@ -18,8 +18,8 @@ class MultiGraph:
         self._logger = logger if logger else PrintLogger("multi-graph")
         self._source = graphs_source
 
-        self._list_id = []  # list of graph ID's - gives a mapping index to ID
-        self._dict_id = {}  # dictionary of graph ID's - gives a mapping ID to index
+        self._list_id = []          # list of graph ID's - gives a mapping index to ID
+        self._dict_id = {}          # dictionary of graph ID's - gives a mapping ID to index
         self._node_count = {}
         self._node_lists = {}
         self._edge_count = {}

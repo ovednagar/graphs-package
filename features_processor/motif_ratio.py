@@ -3,7 +3,7 @@ from graph_features import GraphFeatures
 import numpy as np
 from loggers import BaseLogger, PrintLogger
 import os
-MOTIFS_VAR_PATH = os.path.join(__file__.rsplit(os.sep, 1)[0], "..", "graph-measures", "features_algorithms")
+MOTIFS_VAR_PATH = os.path.join(__file__.rsplit(os.sep, 1)[0])
 
 
 class MotifRatio:
@@ -68,7 +68,7 @@ class MotifRatio:
         return final_vec
 
     def motif_ratio_vector(self):
-        return self._motif_ratio_vec
+        return self._motif_ratio_vec[0]
 
     # return { motif_index: sum motif in index/ total motifs with same edge count }
     def _count_subgraph_motif_by_size(self, ftr_mat, motif_type):

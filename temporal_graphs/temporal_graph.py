@@ -79,8 +79,8 @@ class TemporalGraph:
 
 
 if __name__ == "__main__":
-    pd.set_option('display.max_columns', 10)
-    pd.set_option('display.max_rows', 10)
+    pd.set_option('display.max_columns', 2)
+    pd.set_option('display.max_rows', 2)
     pd.set_option('display.width', 1000)
 
     tg = TemporalGraph("FireWall", "Firewall-04062012.csv", '%d/%b/%Y %H%M:%S', "Date/time", "Source IP",
