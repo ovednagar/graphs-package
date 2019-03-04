@@ -13,11 +13,14 @@ class MotifRatio:
         self._logger = logger if logger else PrintLogger("graphs logger")
         # self._graph_order = graph_order if graph_order else [g for g in sorted(graph_ftr_dict)]
         self._gnx_ftr = ftr
+        self._set_index_to_ftr(self._gnx_ftr)
         # list index in motif to number of edges in the motif
         self._motif_index_to_edge_num = {"motif3": self._motif_num_to_number_of_edges(3),
                                          "motif4": self._motif_num_to_number_of_edges(4)}
+        self._ftr_mx = self._gnx_ftr.to_matrix(dtype=np.float32, mtype=np.matrix, should_zscore=False)
         self._headers = []
-        self._motif_ratio_vec = self._build()
+        self._motif_ratio_vec = None
+        self._motif_ratio_matrix = None
 
     # load motif variation file
     def _load_variations_file(self, level):
@@ -44,34 +47,69 @@ class MotifRatio:
                 self._index_ftr += [(ftr, i) for i in range(len_ftr)]
 
     # get feature vector for a graph
-    def _build(self):
+    def _build_vector(self):
         # get gnx gnx
-        ftr_mx = self._gnx_ftr.to_matrix(dtype=np.float32, mtype=np.matrix, should_zscore=False)
-        final_vec = np.zeros((1, ftr_mx.shape[1]))
-
-        self._set_index_to_ftr(self._gnx_ftr)
+        final_vec = np.zeros((1, self._ftr_mx.shape[1]))
 
         motif3_ratio = None
         motif4_ratio = None
         for i, (ftr, ftr_count) in enumerate(self._index_ftr):
             if ftr == "motif3":
                 # calculate { motif_index: motif ratio }
-                motif3_ratio = self._count_subgraph_motif_by_size(ftr_mx, ftr) if not motif3_ratio else motif3_ratio
+                motif3_ratio = self._count_subgraph_motif_by_size(self._ftr_mx, ftr) if not motif3_ratio else motif3_ratio
                 final_vec[0, i] = motif3_ratio[ftr_count]
                 self._headers.append("motif3_" + str(self._motif_index_to_edge_num["motif3"][ftr_count]) + "_edges")
             elif ftr == "motif4":
                 # calculate { motif_index: motif ratio }
-                motif4_ratio = self._count_subgraph_motif_by_size(ftr_mx, ftr) if not motif4_ratio else motif4_ratio
+                motif4_ratio = self._count_subgraph_motif_by_size(self._ftr_mx, ftr) if not motif4_ratio else motif4_ratio
                 final_vec[0, i] = motif4_ratio[ftr_count]
                 self._headers.append("motif4_" + str(self._motif_index_to_edge_num["motif4"][ftr_count]) + "_edges")
             else:
                 # calculate average of column
-                final_vec[0, i] = np.sum(ftr_mx[:, i]) / ftr_mx.shape[0]
+                final_vec[0, i] = np.sum(self._ftr_mx[:, i]) / self._ftr_mx.shape[0]
                 self._headers.append(ftr + "_" + str(ftr_count))
         return final_vec
 
+    def _build_matrix(self):
+        sum_dictionaries_motifs3 = []
+        sum_dictionaries_motifs4 = []
+        # 3: [ ... row(node): { num_edges_in_motif3: count (for_this_node_only) } ... ]
+        for i in range(self._ftr_mx.shape[0]):
+            sum_dictionaries_motifs3.append({})
+            sum_dictionaries_motifs4.append({})
+            for j, (ftr, ftr_count) in enumerate(self._index_ftr):
+                if ftr == "motif3":
+                    key = self._motif_index_to_edge_num[ftr][ftr_count]
+                    sum_dictionaries_motifs3[i][key] = sum_dictionaries_motifs3[i].get(key, 1e-3) + self._ftr_mx[i, j]
+                elif ftr == "motif4":
+                    key = self._motif_index_to_edge_num[ftr][ftr_count]
+                    sum_dictionaries_motifs4[i][key] = sum_dictionaries_motifs3[i].get(key, 1e-3) + self._ftr_mx[i, j]
+
+        return_mx = self._ftr_mx.copy()
+        for i in range(self._ftr_mx.shape[0]):
+            for j, (ftr, ftr_count) in enumerate(self._index_ftr):
+                if ftr == "motif3":
+                    # calculate { motif_index: motif ratio }
+                    return_mx[i, j] /= sum_dictionaries_motifs3[i][self._motif_index_to_edge_num[ftr][ftr_count]]
+                    if i == 0:
+                        self._headers.append("motif3_" + str(self._motif_index_to_edge_num["motif3"][ftr_count]) + "_edges")
+                elif ftr == "motif4":
+                    # calculate { motif_index: motif ratio }
+                    return_mx[i, j] /= sum_dictionaries_motifs3[i][self._motif_index_to_edge_num[ftr][ftr_count]]
+                    if i == 0:
+                        self._headers.append("motif4_" + str(self._motif_index_to_edge_num["motif4"][ftr_count]) + "_edges")
+                else:
+                    if i == 0:
+                        self._headers.append(ftr + "_" + str(ftr_count))
+        return return_mx
+
     def motif_ratio_vector(self):
+        self._motif_ratio_vec = self._motif_ratio_vec if self._motif_ratio_vec else self._build_vector()
         return self._motif_ratio_vec[0]
+
+    def motif_ratio_matrix(self):
+        self._motif_ratio_matrix = self._motif_ratio_matrix if self._motif_ratio_matrix else self._build_matrix()
+        return self._motif_ratio_matrix
 
     def get_headers(self):
         return self._headers
