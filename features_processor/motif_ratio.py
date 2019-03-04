@@ -16,6 +16,7 @@ class MotifRatio:
         # list index in motif to number of edges in the motif
         self._motif_index_to_edge_num = {"motif3": self._motif_num_to_number_of_edges(3),
                                          "motif4": self._motif_num_to_number_of_edges(4)}
+        self._headers = []
         self._motif_ratio_vec = self._build()
 
     # load motif variation file
@@ -31,7 +32,7 @@ class MotifRatio:
             motif_edge_num_dict[motif_num] = bin(bit_sec).count('1')
         return motif_edge_num_dict
 
-    # map matrix rows to features + count if there's more then one from feature
+    # map matrix columns to features + count if there's more then one from a single feature
     def _set_index_to_ftr(self, gnx_ftr):
         if not self._index_ftr:
             sorted_ftr = [f for f in sorted(gnx_ftr) if gnx_ftr[f].is_relevant()]  # fix feature order (names)
@@ -40,8 +41,7 @@ class MotifRatio:
             for ftr in sorted_ftr:
                 len_ftr = len(gnx_ftr[ftr])
                 # fill list with (ftr, counter)
-                self._index_ftr += self._get_motif_type(ftr, len_ftr) if ftr == 'motif3' or ftr == 'motif4' else \
-                    [(ftr, i) for i in range(len_ftr)]
+                self._index_ftr += [(ftr, i) for i in range(len_ftr)]
 
     # get feature vector for a graph
     def _build(self):
@@ -58,17 +58,23 @@ class MotifRatio:
                 # calculate { motif_index: motif ratio }
                 motif3_ratio = self._count_subgraph_motif_by_size(ftr_mx, ftr) if not motif3_ratio else motif3_ratio
                 final_vec[0, i] = motif3_ratio[ftr_count]
+                self._headers.append("motif3_" + str(self._motif_index_to_edge_num["motif3"][ftr_count]) + "_edges")
             elif ftr == "motif4":
                 # calculate { motif_index: motif ratio }
                 motif4_ratio = self._count_subgraph_motif_by_size(ftr_mx, ftr) if not motif4_ratio else motif4_ratio
                 final_vec[0, i] = motif4_ratio[ftr_count]
+                self._headers.append("motif4_" + str(self._motif_index_to_edge_num["motif4"][ftr_count]) + "_edges")
             else:
                 # calculate average of column
                 final_vec[0, i] = np.sum(ftr_mx[:, i]) / ftr_mx.shape[0]
+                self._headers.append(ftr + "_" + str(ftr_count))
         return final_vec
 
     def motif_ratio_vector(self):
         return self._motif_ratio_vec[0]
+
+    def get_headers(self):
+        return self._headers
 
     # return { motif_index: sum motif in index/ total motifs with same edge count }
     def _count_subgraph_motif_by_size(self, ftr_mat, motif_type):
