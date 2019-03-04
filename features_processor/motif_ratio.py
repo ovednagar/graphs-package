@@ -83,7 +83,7 @@ class MotifRatio:
                     sum_dictionaries_motifs3[i][key] = sum_dictionaries_motifs3[i].get(key, 1e-3) + self._ftr_mx[i, j]
                 elif ftr == "motif4":
                     key = self._motif_index_to_edge_num[ftr][ftr_count]
-                    sum_dictionaries_motifs4[i][key] = sum_dictionaries_motifs3[i].get(key, 1e-3) + self._ftr_mx[i, j]
+                    sum_dictionaries_motifs4[i][key] = sum_dictionaries_motifs4[i].get(key, 1e-3) + self._ftr_mx[i, j]
 
         return_mx = self._ftr_mx.copy()
         for i in range(self._ftr_mx.shape[0]):
