@@ -95,7 +95,7 @@ class MotifRatio:
                         self._headers.append("motif3_" + str(self._motif_index_to_edge_num["motif3"][ftr_count]) + "_edges")
                 elif ftr == "motif4":
                     # calculate { motif_index: motif ratio }
-                    return_mx[i, j] /= sum_dictionaries_motifs3[i][self._motif_index_to_edge_num[ftr][ftr_count]]
+                    return_mx[i, j] /= sum_dictionaries_motifs4[i][self._motif_index_to_edge_num[ftr][ftr_count]]
                     if i == 0:
                         self._headers.append("motif4_" + str(self._motif_index_to_edge_num["motif4"][ftr_count]) + "_edges")
                 else:
