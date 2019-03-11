@@ -1,3 +1,4 @@
+from accelerated_features_meta import FeaturesMeta
 from graph_features import GraphFeatures
 import numpy as np
 from motif_ratio import MotifRatio
@@ -42,7 +43,7 @@ class FeaturesProcessor:
             as_vec = np.hstack((as_vec, np.matrix(to_add)))
         if norm_func:
             as_vec = norm_func(as_vec)
-        return np.array(as_vec)[0]
+        return np.array(as_vec)
 
     @staticmethod
     def _convert_dict_to_list(dictionary, entries_order):
@@ -73,7 +74,6 @@ class FeaturesProcessor:
 
 if __name__ == "__main__":
     import networkx as nx
-    from feature_meta import NODE_FEATURES
 
     gnx = nx.Graph()
     gnx.add_edges_from([
@@ -87,7 +87,7 @@ if __name__ == "__main__":
         (6, 8),
         (5, 6),
     ])
-    gnx_ftr = GraphFeatures(gnx, NODE_FEATURES, ".", is_max_connected=True)
+    gnx_ftr = GraphFeatures(gnx, FeaturesMeta().NODE_LEVEL, ".", is_max_connected=True)
     fp = FeaturesProcessor(gnx_ftr)
     fp.activate_motif_ratio_vec()
     e = 0
