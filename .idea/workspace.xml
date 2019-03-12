@@ -3,16 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="3995cdcd-b4cb-4c62-90a5-0fd4a2545823" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/multi_graph/multi_graph.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../graph-measures/feature_meta.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../graph-measures/features_algorithms/accelerated_graph_features/bfs_moments.py" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-measures/features_algorithms/accelerated_graph_features/bfs_moments.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../graph-measures/features_algorithms/accelerated_graph_features/src/accelerated_graph_features/feature_wrapper_decorator.py" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-measures/features_algorithms/accelerated_graph_features/src/accelerated_graph_features/feature_wrapper_decorator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../graph-measures/features_algorithms/accelerated_graph_features/src/features/BfsMomentsCalculator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-measures/features_algorithms/accelerated_graph_features/src/features/BfsMomentsCalculator.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../graph-measures/features_algorithms/accelerated_graph_features/src/utils/MathUtils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-measures/features_algorithms/accelerated_graph_features/src/utils/MathUtils.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/graphs-package.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/graphs-package.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/features_processor/features_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/features_processor/features_processor.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../graph-measures/features_algorithms/accelerated_graph_features/motifs.py" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-measures/features_algorithms/accelerated_graph_features/motifs.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../graph-measures/features_meta/accelerated_features_meta.py" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-measures/features_meta/accelerated_features_meta.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../graph-measures/features_meta/features_meta.py" beforeDir="false" afterPath="$PROJECT_DIR$/../graph-measures/features_meta/features_meta.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/multi_graph/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/multi_graph/graphs.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/multi_graph/multi_graph_features.py" beforeDir="false" />
@@ -31,7 +24,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/features_processor/features_processor.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
+            <state relative-caret-position="1395">
               <caret line="93" lean-forward="true" selection-start-line="93" selection-end-line="93" />
               <folding>
                 <element signature="e#0#50#0" expanded="true" />
@@ -71,11 +64,6 @@
               <item name="graphs-package" type="b2602c69:ProjectViewProjectNode" />
               <item name="graphs-package" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="graphs-package" type="b2602c69:ProjectViewProjectNode" />
-              <item name="graphs-package" type="462c0819:PsiDirectoryNode" />
-              <item name="features_processor" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -85,7 +73,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../graph-measures" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../gnx-featurs-csv" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
@@ -141,19 +129,19 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1552309359274</updated>
-      <workItem from="1552309360487" duration="207000" />
+      <workItem from="1552309360487" duration="785000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="207000" />
+    <option name="totallyTimeSpent" value="785000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24958494" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24958494" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" />
@@ -164,7 +152,7 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32937366" />
-      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.39956802" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39956802" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -203,7 +191,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/features_processor/features_processor.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
+        <state relative-caret-position="1395">
           <caret line="93" lean-forward="true" selection-start-line="93" selection-end-line="93" />
           <folding>
             <element signature="e#0#50#0" expanded="true" />
