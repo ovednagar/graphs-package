@@ -9,6 +9,17 @@ import os
 
 
 class MultiGraph:
+    """
+    database_name:  name of the data set
+    source=
+
+        None: in that case, it is expected that a dir named DATABASE_NAME will be in /GRAPHS_INPUT/multi_graph
+              the directory should contain files, each file is a single graph, in the following format:
+              each line is a single edge    source,dest,weight           # weight is optional
+        PATH: same as above but the directory will be the given path
+        DICTIONARY { name: gnx }
+        DICTIONARY { name: edge_list=[...(source,dest,weight)...] }      # weight is optional
+    """
     def __init__(self, database_name, graphs_source=None, directed=False, logger: BaseLogger=None):
         self._base_dir = __file__.replace("/", os.sep)
         self._base_dir = os.path.join(self._base_dir.rsplit(os.sep, 1)[0], "..")
