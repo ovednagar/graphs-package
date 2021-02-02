@@ -28,8 +28,6 @@ def log_norm(matrix):
 class FeaturesProcessor:
     def __init__(self, gnx_features: GraphFeatures):
         self._gnx_ftr = gnx_features
-        if not self._gnx_ftr.is_build:
-            self._gnx_ftr.build()
 
     # function input:
     #   - to add: list/np_array/np_matrix

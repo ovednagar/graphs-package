@@ -70,12 +70,12 @@ class TemporalGraph:
             return
         if self._time_format == "MIL":
             graph_df[self._time_col] = graph_df[self._time_col] / 1000  # mili to seconds
-        if self._time_format == "MIL" or format == "SEC":
+        if self._time_format == "MIL" or self._time_format == "SEC":
             graph_df[self._time_col] = \
                 graph_df[self._time_col].apply(lambda x: datetime.fromtimestamp(x))  # to datetime format
         else:
             # to datetime
-            graph_df[self._time_col] = graph_df[self._time_col].apply(lambda x: datetime.strptime(x, self._time_format))
+            graph_df[self._time_col] = graph_df[self._time_col].apply(lambda x: datetime.strptime(str(x), self._time_format))
 
 
 if __name__ == "__main__":
